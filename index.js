@@ -1,9 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const sqlite3 = require("sqlite3").verbose();
+const cors = require('cors');
+
 
 const app = express();
 app.use(bodyParser.json());
+
+app.use(cors({
+  origin: 'http://localhost:5173', // Adjust this to match your front-end domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Specify the allowed methods
+  credentials: true, // If you are sending cookies or authentication tokens
+}));
+
 
 // Inicializar la base de datos
 const db = new sqlite3.Database("./event-management.db", (err) => {
